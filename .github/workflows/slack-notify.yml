@@ -11,8 +11,7 @@ jobs:
       env:
         SLACK_CHANNEL: notificaciones-git
         SLACK_COLOR: ${{ job.status }} # or a specific color like 'good' or '#ff00ff'
-        SLACK_ICON: https://github.com/Victonav/ISparcial/blob/main/globos-de-texto.png
-        SLACK_MESSAGE: 'Se realizaron cambios'
+        SLACK_MESSAGE: 'Se realizaron cambios '
         SLACK_TITLE: Post Title
         SLACK_USERNAME: Mensajero
         SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
