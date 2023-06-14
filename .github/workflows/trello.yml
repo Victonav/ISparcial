@@ -18,3 +18,4 @@ jobs:
           trello-list-name-commit: "DOING"
           trello-list-name-pr-open: "REVIEW"
           trello-list-name-pr-closed: "DONE"
+          trello-card-id-pattern: "II-"
