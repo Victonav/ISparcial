@@ -44,6 +44,8 @@ jobs:
  
     - name: Slack Notification - Fallo test
       uses: rtCamp/action-slack-notify@v2
+      env:
+       SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
       if: ${{ failure() }}
       with:
          status: ${{ job.status }}
@@ -65,6 +67,8 @@ jobs:
 
     - name: Slack Notification - Deploy
       uses: rtCamp/action-slack-notify@v2
+      env:
+       SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
       if: ${{ !failure() }}
       with:
          status: ${{ job.status }}
@@ -74,3 +78,4 @@ jobs:
             Commit: ${{ github.sha }}
             Mensaje: ${{ github.event.head_commit.message }}
             channel: #notificaciones-git  
+            
