@@ -41,6 +41,19 @@ jobs:
         pip install pytest
         export PYTHONPATH=src
         pytest
+ 
+    - name: Slack Notification - Fallo test
+      uses: rtCamp/action-slack-notify@v2
+      if: ${{ failure() }}
+      with:
+         status: ${{ job.status }}
+         text: |
+            Los tests fallaron. 
+            Autor: ${{ github.actor }}
+            Commit: ${{ github.sha }}
+            Mensaje: ${{ github.event.head_commit.message }}
+            channel: #notificaciones-git         
+          
     - name: Deploy to Heroku
       env:
         HEROKU_API_TOKEN: ${{ secrets.HEROKU_API_TOKEN }}
@@ -49,4 +62,15 @@ jobs:
       run: |
         git remote add heroku https://heroku:$HEROKU_API_TOKEN@git.heroku.com/$HEROKU_APP_NAME.git
         git push heroku HEAD:main -f
-        
+
+    - name: Slack Notification - Deploy
+      uses: rtCamp/action-slack-notify@v2
+      if: ${{ !failure() }}
+      with:
+         status: ${{ job.status }}
+         text: |
+            Se realizaron cambios y se realizo el deploy. 
+            Autor: ${{ github.actor }}
+            Commit: ${{ github.sha }}
+            Mensaje: ${{ github.event.head_commit.message }}
+            channel: #notificaciones-git  
