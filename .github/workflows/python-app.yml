@@ -49,11 +49,11 @@ jobs:
       if: ${{ failure() }}
       with:
          status: ${{ job.status }}
-         text: |
-            Autor: ${{ github.actor }}
-            Commit: ${{ github.sha }}
-            Mensaje: "Los tests fallaron."
-            channel: #notificaciones-git         
+         SLACK_CHANNEL: notificaciones-git
+         SLACK_COLOR: ${{ job.status }} # or a specific color like 'good' or '#ff00ff'
+         SLACK_MESSAGE: 'Se realizaron cambios '
+         SLACK_TITLE: Titulo
+         SLACK_USERNAME: Mensajero       
           
     - name: Deploy to Heroku
       env:
