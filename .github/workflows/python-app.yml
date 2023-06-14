@@ -66,14 +66,11 @@ jobs:
     - name: Slack Notification - Deploy
       uses: rtCamp/action-slack-notify@v2
       env:
-       SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+         SLACK_CHANNEL: notificaciones-git
+         SLACK_COLOR: ${{ job.status }} # or a specific color like 'good' or '#ff00ff'
+         SLACK_MESSAGE: 'Se realizaron cambios y se realizo el deploy'
+         SLACK_TITLE: Titulo
+         SLACK_USERNAME: Mensajero       
+         SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
       if: ${{ !failure() }}
-      with:
-         status: ${{ job.status }}
-         text: |
-            Se realizaron cambios y se realizo el deploy. 
-            Autor: ${{ github.actor }}
-            Commit: ${{ github.sha }}
-            Mensaje: ${{ github.event.head_commit.message }}
-            channel: #notificaciones-git  
             
