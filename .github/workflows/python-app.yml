@@ -41,22 +41,6 @@ jobs:
         pip install pytest
         export PYTHONPATH=src
         pytest
-#Slack
-    - name: Slack Notification
-      uses: rtCamp/action-slack-notify@v2
-      env:
-        SLACK_CHANNEL: notificaciones-git
-        SLACK_COLOR: ${{ job.status }} # or a specific color like 'good' or '#ff00ff'
-        if: ${{ failure() }}
-      with:
-        status: ${{ job.status }}
-        text: |
-                Los tests fallaron.
-                Autor: ${{ github.actor }}
-                Commit: ${{ github.sha }}
-                Mensaje: ${{ github.event.head_commit.message }}
-
-
     - name: Deploy to Heroku
       env:
         HEROKU_API_TOKEN: ${{ secrets.HEROKU_API_TOKEN }}
@@ -66,15 +50,3 @@ jobs:
         git remote add heroku https://heroku:$HEROKU_API_TOKEN@git.heroku.com/$HEROKU_APP_NAME.git
         git push heroku HEAD:main -f
         
-    - name: Notificacion Slack 
-      uses: 8398a7/action-slack@v3
-      env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
-      if: ${{ !failure() }}
-      with:
-          status: ${{ job.status }}
-          text: |
-                  Se ha desplegado una nueva version.
-                  Autor: ${{ github.actor }}
-                  Commit: ${{ github.sha }}
-                  Mensaje: ${{ github.event.head_commit.message }}
