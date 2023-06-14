@@ -50,10 +50,9 @@ jobs:
       with:
          status: ${{ job.status }}
          text: |
-            Los tests fallaron. 
             Autor: ${{ github.actor }}
             Commit: ${{ github.sha }}
-            Mensaje: ${{ github.event.head_commit.message }}
+            Mensaje: "Los tests fallaron."
             channel: #notificaciones-git         
           
     - name: Deploy to Heroku
